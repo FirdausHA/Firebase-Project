@@ -9,10 +9,13 @@ class CartItemSamples extends StatelessWidget{
   final Controller c = Get.put(Controller());
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: EdgeInsets.symmetric(
+          horizontal: currentWidth > 600 ? 150 : 20,
+        ), 
       child: SingleChildScrollView(
         child: Column(
           children: [

@@ -9,11 +9,17 @@ class CartProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
 
     return Obx(() =>
-        SizedBox(
-          height: 400,
-          child: ListView.builder(
+      currentWidth > 600 ?
+      GridView.builder(
+         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+           crossAxisCount: 2,
+           childAspectRatio: 3,
+         ),
+          shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemCount: controller.products.length,
             itemBuilder: (BuildContext context, int index) {
               return CartProductCard(
@@ -23,7 +29,18 @@ class CartProduct extends StatelessWidget {
                 index: index,
               );
             },
-          ),
+          )
+
+        :ListView.builder(
+          itemCount: controller.products.length,
+          itemBuilder: (BuildContext context, int index) {
+            return CartProductCard(
+              controller: controller,
+              product: controller.products.keys.toList()[index],
+              quantity: controller.products.values.toList()[index],
+              index: index,
+            );
+          },
         ),
     );
   }
